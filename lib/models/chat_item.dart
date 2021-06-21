@@ -7,7 +7,7 @@ class ChatItem {
   String messageId;
 
   ChatItem.fromJson(Map<dynamic,dynamic> data,String id) {
-    dateTime = data["dateTime"];
+    dateTime = data["date_time"];
     isRead = data["isRead"];
     message = data["message"];
     fromId = data["fromId"];

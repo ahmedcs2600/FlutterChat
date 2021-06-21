@@ -4,9 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:realchat/OwnerAppPages/Chat.dart';
 import 'package:realchat/OwnerAppPages/ProfilePages/Profile.dart';
 import 'package:realchat/chat/chat.dart';
+import 'package:realchat/models/people_item.dart';
 import '../OwnerAppPages/dashboard.dart';
 
 class HomePage extends StatefulWidget {
+
+  static PeopleItem userObj;
+
   final String SchoolUpin;
   const HomePage({Key key, this.SchoolUpin}) : super(key: key);
   @override
@@ -17,6 +21,9 @@ class _HomePageState extends State<HomePage> {
   // DatabaseReference reference = FirebaseDatabase.instance.reference().child("Schools");
   final fb = FirebaseDatabase.instance;
   FirebaseAuth _auth = FirebaseAuth.instance;
+
+
+
   User user;
   bool isloggedin = false;
 
@@ -34,6 +41,15 @@ class _HomePageState extends State<HomePage> {
     final ref = fb.reference().child("Schools").child("School-Members").child(_auth.currentUser.uid);
     final DataSnapshot data = await ref.once();
     print("User data: ${data.value}");
+
+    final res = await fb.reference()
+         .child("Schools")
+         .child(data.value['InstID'])
+         .child("School-Members")
+          .child(_auth.currentUser.uid).once();
+
+    HomePage.userObj = PeopleItem.fromJson(res.value, null);
+
     setState(() {
       InstID = data.value['InstID'].toString();
     });

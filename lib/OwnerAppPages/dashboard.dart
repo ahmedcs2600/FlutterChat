@@ -20,9 +20,7 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-
-
-
+  
   String pathPDF = "";
 
   // int progress= 0;

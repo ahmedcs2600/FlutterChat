@@ -4,12 +4,13 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:realchat/AuthConfig/HomePage.dart';
 import 'package:realchat/global/firebase_constants.dart';
 import 'package:realchat/models/conversation_item.dart';
 
 class ChatConversationModel extends ChangeNotifier {
   final DatabaseReference conversationDb =
-  FirebaseDatabase().reference().child(FirebaseConstants.conversation);
+  FirebaseDatabase().reference().child("Schools").child(HomePage.userObj.InstID).child(FirebaseConstants.conversation);
 
   List<ConversationItem> items = [];
 

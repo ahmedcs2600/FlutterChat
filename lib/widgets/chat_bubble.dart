@@ -30,24 +30,30 @@ class _ChatBubbleState extends State<ChatBubble> {
       padding: EdgeInsets.fromLTRB(16, 7, 16, 7),
       child: Align(
         alignment: (!isMyMessage ? Alignment.topLeft : Alignment.topRight),
-        child: Container(
-          decoration: BoxDecoration(
-            boxShadow: [BoxShadow(color: Color(0xFFD2D2D2))],
-            borderRadius: BorderRadius.circular(30),
-            color: (!isMyMessage ? Colors.white : Colors.grey.shade200),
-          ),
-          padding: EdgeInsets.all(13),
-          child: Column(
-            children: [
-              Text(widget.chatMessage.message),
-              if(isMyMessage)Icon(
-                widget.chatMessage.isRead ? Icons.check_circle_outline : Icons.check,
-                color:
-                    Colors.black,
-                size: 14,
-              )
-            ],
-          ),
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                boxShadow: [BoxShadow(color: Color(0xFFD2D2D2))],
+                borderRadius: BorderRadius.circular(30),
+                color: (!isMyMessage ? Colors.white : Colors.grey.shade200),
+              ),
+              padding: EdgeInsets.all(13),
+              child: Column(
+                children: [
+                  Text(widget.chatMessage.message),
+                  if(isMyMessage)Icon(
+                    widget.chatMessage.isRead ? Icons.check_circle_outline : Icons.check,
+                    color:
+                        Colors.black,
+                    size: 14,
+                  )
+                ],
+              ),
+            ),
+            SizedBox(height: 5,),
+            Text("${widget.chatMessage.dateTime.split("T")[0]} ${widget.chatMessage.dateTime.split("T")[1]}")
+          ],
         ),
       ),
     );

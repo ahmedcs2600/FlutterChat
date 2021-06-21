@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:realchat/AuthConfig/HomePage.dart';
 import 'package:realchat/global/firebase_constants.dart';
 import 'package:realchat/models/chat_item.dart';
 import 'package:realchat/other/date_time.dart';
@@ -14,7 +15,7 @@ class ChatMessagesModel extends ChangeNotifier {
   final DatabaseReference db =
       FirebaseDatabase().reference().child(FirebaseConstants.messages);
   final DatabaseReference conversationDb =
-      FirebaseDatabase().reference().child(FirebaseConstants.conversation);
+      FirebaseDatabase().reference().child("Schools").child(HomePage.userObj.InstID).child(FirebaseConstants.conversation);
   final currentUserId = FirebaseAuth.instance.currentUser.uid;
   final String toUserId;
   final String conversationId;
@@ -144,7 +145,7 @@ class ChatMessagesModel extends ChangeNotifier {
         "date_time": getCurrentUtcDateTime(),
         "fromUserId": toUserId,
         "toUserId": currentUserId,
-        "userName": FirebaseAuth.instance.currentUser.displayName,
+        "userName": HomePage.userObj.FullName,
         "timeStamp" : DateTime.now().toUtc().millisecondsSinceEpoch,
         "unreadCount" : messages.where((element) => element.fromId == FirebaseAuth.instance.currentUser.uid).toList().length + 1
       });
@@ -163,7 +164,7 @@ class ChatMessagesModel extends ChangeNotifier {
         "date_time": getCurrentUtcDateTime(),
         "fromUserId": toUserId,
         "toUserId": currentUserId,
-        "userName": FirebaseAuth.instance.currentUser.displayName,
+        "userName": HomePage.userObj.FullName,
         "timeStamp" : DateTime.now().toUtc().millisecondsSinceEpoch,
         "unreadCount" : messages.where((element) => element.fromId == FirebaseAuth.instance.currentUser.uid).toList().length + 1
       });
